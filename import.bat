@@ -1,0 +1,1 @@
+mongoimport /jsonArray -d bechdel -c movies data/getAllMovies.json 
