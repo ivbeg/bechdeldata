@@ -40,5 +40,18 @@ def stat_movies():
         print('%s\t%d\t%d\t%d\t%d\t%d\t%f%%' % (y, total, r0, r1, r2, r3, prop))
 
 
+    # Печатает таблицу с фильмами по странам и годам
+    print('year\tcountry\ttotal\tr0\tr1\tr2\tr3\tshare')
+    for y in years:
+	    for c in countries:
+	        total = coll.find({'production_countries.name' : c, 'year' : y}).count()
+	        r0 = coll.find({'production_countries.name' : c, 'year' : y, 'rating' : 0}).count()
+	        r1 = coll.find({'production_countries.name' : c, 'year' : y, 'rating' : 1}).count()
+	        r2 = coll.find({'production_countries.name' : c, 'year' : y, 'rating' : 2}).count()
+	        r3 = coll.find({'production_countries.name' : c, 'year' : y, 'rating' : 3}).count()
+	        prop = (100.0*float(r3)) / total if total > 0 else 0
+	        print('%d\t%s\t%d\t%d\t%d\t%d\t%d\t%f%%' % (y, c, total, r0, r1, r2, r3, prop))
+
+
 if __name__ == "__main__":
     stat_movies()
